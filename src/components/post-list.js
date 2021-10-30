@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Post from './post'
 
 function PostList() {
   const [postListData, setPostListData] = useState([])
@@ -22,7 +23,7 @@ function PostList() {
     <div className='postList'>
       <ul>
         {postListData.map((post) => (
-          <li>Post: {post.post_title}</li>
+          <Post postData={post} key={post.post_id} />
         ))}
       </ul>
     </div>
