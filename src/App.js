@@ -12,6 +12,8 @@ function App() {
   const [newPost, setNewPost] = useState({ post_title: '', post_body: '' })
   const [postListData, setPostListData] = useState([])
 
+  const [userId, setUserId] = useState(99)
+
   // Get All Posts
   const getAllPosts = () => {
     api.get('/').then((res) => {
@@ -24,7 +26,7 @@ function App() {
   const addNewPost = () => {
     console.log('adding this new post: ' + newPost.post_title)
     api
-      .post('/', { user_id: 99, ...newPost })
+      .post('/', { user_id: userId, ...newPost })
       .then((res) => {
         console.log(res)
         if (res.status === 200) console.log('Successfully added new post')
@@ -37,12 +39,13 @@ function App() {
   // Update a Post
   const updatePost = (post_id) => {
     api
-      .put('/' + newPost.post_id, { ...newPost })
+      .put('/' + post_id, { ...newPost })
       .then((res) => {
         if (res.status === 200) console.log('Successfully updated post')
         else console.log('something went wrong')
       })
       .catch((err) => console.log(err))
+    setPostListData(...postListData.filter((post) => post.post_id !== post_id), newPost)
     setNewPost({})
   }
 
@@ -55,7 +58,7 @@ function App() {
         else console.log('something went wrong')
       })
       .catch((err) => console.log(err))
-      .then(getAllPosts())
+    setPostListData(postListData.filter((post) => post.post_id !== post_id))
   }
 
   useEffect(() => {
