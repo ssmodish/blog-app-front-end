@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import Axios from 'axios'
 
 const api = Axios.create({
@@ -78,21 +79,35 @@ function App() {
   }
 
   return (
-    <>
-      <h1>Simple Blog App</h1>
-      <hr />
+    <div className='container mx-auto px-4'>
+      <h1 className='text-3xl mb-6'>Simple Blog App</h1>
 
-      <div className='form'>
+      <div className='form w-1/2'>
         <form onSubmit={addNewPost}>
-          <label for='title'>Title:</label>
-          <input type='text' id='title' name='post_title' onChange={handleChange} value={newPost.post_title} />
-          <br />
-          <label for='body'>Body:</label>
-          <input type='text' id='body' name='post_body' onChange={handleChange} value={newPost.post_body} />
-          <br />
-          <button>Submit</button>
+          <div className='grid gap-4'>
+            <div className='grid columns-4 columns-xs gap-1'>
+              <label for='title'>Title:</label>
+              <input
+                className='border-solid border-2 border-black col-start-2 col-span-3'
+                type='text'
+                id='title'
+                name='post_title'
+                onChange={handleChange}
+                value={newPost.post_title}
+              />
+              <label for='body'>Body:</label>
+              <input
+                className='border-solid border-2 border-black col-start-2 col-span-3'
+                type='text'
+                id='body'
+                name='post_body'
+                onChange={handleChange}
+                value={newPost.post_body}
+              />
+              <button className='border-solid border-4 border-green-400 col-start-4'>Submit</button>
+            </div>
+          </div>
         </form>
-        <hr />
         <br />
       </div>
       <div className='postList'>
@@ -109,7 +124,7 @@ function App() {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   )
 }
 
